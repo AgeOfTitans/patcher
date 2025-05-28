@@ -1,11 +1,17 @@
-virtualenv venv creates yoru pip env.  then `source venv/bin/activate`.
+
+# Development
+
+### venv
+virtualenv venv creates yoru pip env.  then `source venv/bin/activate`.  Then `pip install`.
 
 
+### Build
+
+For development:
+
+`python aotpatcher.py`
+
+For deployment:
 
 
-# Build
-
-
-https://github.com/python-eel/Eel?tab=readme-ov-file#building-distributable-binary-with-pyinstaller
-
-`python -m eel [your_main_script] [your_web_folder]`
+`python -m eel aotpatcher.py web --onefile --noconsole --exclude win32com --exclude cryptography`
