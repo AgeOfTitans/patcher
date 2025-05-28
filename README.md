@@ -1,4 +1,11 @@
 
+# Age of Titans Patcher
+
+Age of Titans is a roguelike Everquest adaptation using [EQEMU](https://www.eqemulator.org/).
+
+This patcher is built with vanilla html/css/js and  [Python Eel](https://github.com/python-eel/Eel).
+
+
 # Development
 
 ### venv
