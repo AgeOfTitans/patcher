@@ -1,0 +1,34 @@
+/* Default Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  font-family: "Mukta", sans-serif;
+}
+
+
+#buttons-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+#container {
+  margin: 50px;
+  border-style: rounded;
+  border-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+    margin-bottom: 10px;
+    min-height: 50px;
+    padding: 20px;
+    font-size: 28px;
+
+}
