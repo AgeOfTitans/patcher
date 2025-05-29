@@ -1,30 +1,30 @@
 const buttonsSection = document.querySelector(".buttons-section")
 
 
-eel.expose(say_hello_js);               // Expose this function to Python
+eel.expose(move);               // Expose this function to Python
+eel.expose(readyToPlay);
 function say_hello_js(x) {
     console.log("Hello from " + x);
 }
 
 
-var i = 0;
-function move() {
-  if (i == 0) {
-    i = 1;
+function init_update() {
+    eel.init_update()
+}
+
+
+function move(progress) {
+
     var elem = document.getElementById("progress-bar");
     var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (width >= 100) {
+    document.getElementById("update-client").disabled = true;
+    if (width >= 100) {
         clearInterval(id);
-        i = 0;
-        readyToPlay();
-      } else {
-        width++;
+    } else {
+        width = progress;
         elem.style.width = width + "%";
-      }
     }
-  }
+
 }
 
 //disable the download button, enable the play button.

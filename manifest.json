@@ -1,0 +1,16 @@
+{
+  "version": "1.0.2",
+  "base_url": "https://www.dropbox.com/s/xyz123/files",
+  "files": [
+    {
+      "path": "game.exe",
+      "hash": "e3b0c44298...",
+      "size": 143360
+    },
+    {
+      "path": "assets/sprites/sprite1.png",
+      "hash": "a7f5f35426...",
+      "size": 23874
+    }
+  ]
+}
