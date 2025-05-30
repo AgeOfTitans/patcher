@@ -9,18 +9,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script type="text/javascript" src="index.js"></script>
 </head>
-
 <body>
     <div id="container">
         <img src="assets/img/aot_splash.png">
         <div id="version-comparison-section">
-            <div>Your version: 1.0.5</div>
-            <div>Latest version: 1.0.10</div>
+            <div>Your version: <div id="client-version" class="version-string">Loading</div></div>
+            <div>Latest version: <div id="current-version" class="version-string">Loading</div></div>
         </div>
         <div id="buttons-section">
             <button id="play" disabled>Play</button>
             <button id="download-client" disabled>Download Base Client</button>
-            <button id="update-client"  onclick="init_update()">Update to 1.0.10</button>
+            <button id="update-client"  onclick="init_update()">Update</button>
         </div>
 
         <div id="download-status"></div>

@@ -1,36 +1,43 @@
-const buttonsSection = document.querySelector(".buttons-section")
+const buttonsSection = document.getElementById("buttons-section")
 let manifest;
-let version;
+let client_version;
 let current_version;
+let updateButton = document.getElementById("update-client")
 
 async function loadVersionInfo() {
     manifest = await eel.get_manifest()();
-    version = await eel.get_version()();
+    client_version = await eel.get_version()();
     current_version = await eel.get_current_version(manifest)();
+
     eel.printf("Latest version.")
-    console.log("Latest version:", version);
+
+    console.log("Latest version:", current_version);
+
+    console.log({ client_version, current_version })
+    if (!client_version) {
+        console.log("herp")
+        return;
+    }
+
+    document.getElementById("client-version").innerHTML = client_version
+    document.getElementById("current-version").innerHTML = current_version
+    document.getElementById("update-client").innerHTML = `Update to ${current_version}`
 }
 
 loadVersionInfo();
-
-
-eel.expose(move);               // Expose this function to Python
-eel.expose(readyToPlay);
-function say_hello_js(x) {
-    console.log("Hello from " + x);
-}
-
 
 function init_update() {
     eel.init_update(manifest, version)
 }
 
-
+/**
+ * 
+ * @param {int} progress Percent complete.  Should be < 100
+ */
 function move(progress) {
-
     var elem = document.getElementById("progress-bar");
     var width = 1;
-    document.getElementById("update-client").disabled = true;
+    updateButton.disabled = true;
     if (width >= 100) {
         clearInterval(id);
     } else {
@@ -40,12 +47,21 @@ function move(progress) {
 
 }
 
-//disable the download button, enable the play button.
+/**
+ * Patcher has finished, game is ready to play.
+ */
 function readyToPlay() {
-
-    document.getElementById("update-client").disabled = true;
+    updateButton.disabled = true;
     document.getElementById("play").disabled = false;
+    updateButton.value = `Up to Date!`
+    document.querySelector(".client-version").value = current_version
 
-    console.log("trying to do it")
+
+
 }
-eel.say_hello_py("Javascript butt!");  // Call a Python function
+
+
+
+//exports to python
+eel.expose(move);
+eel.expose(readyToPlay);

@@ -44,7 +44,6 @@ def init_update(manifest, client_version):
         if download.download(src_link, dest_file):
             progress = progress + 1
             eel.move(math.ceil(100 * progress / delta_count))  # ceil to prevent rounding issues
-
     eel.readyToPlay()
 
 
