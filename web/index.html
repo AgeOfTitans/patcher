@@ -9,30 +9,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script type="text/javascript" src="index.js"></script>
 </head>
+
+
 <body>
-    <div id="container">
+    <div id="container" class="parchment">
         <img src="assets/img/aot_splash.png">
-        <div id="version-comparison-section">
-            <div>Your version: <div id="client-version" class="version-string">Loading</div></div>
-            <div>Latest version: <div id="current-version" class="version-string">Loading</div></div>
-        </div>
         <div id="buttons-section">
             <button id="play" disabled>Play</button>
             <button id="download-client" disabled>Download Base Client</button>
-            <button id="update-client"  onclick="init_update()">Update</button>
+            <button id="update-client" disabled onclick="init_update()">Update</button>
         </div>
-
-        <div id="download-status"></div>
-        <p id="welcome-section">Please <a href="https://discord.com">join us on Discord! </a></p>
-    
         <div id="progress-bar-section">
             <div id="progress">
-            <div id="progress-bar"></div>
+                <div id="progress-bar"></div>
             </div>
         </div>
-    
+        <div id="download-status"></div>
+        <p id="welcome-section">Please <a href="https://discord.com">join us on Discord! </a></p>
+
+        <div id="version-comparison-section">
+            <div class="version-line">Your version: <div id="client-version" class="version-string">Loading</div>
+            </div>
+            <div class="version-line">Latest version: <div id="current-version" class="version-string">Loading</div>
+            </div>
+        </div>
+
     </div>
-    
+
 
 </body>
 

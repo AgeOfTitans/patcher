@@ -21,13 +21,21 @@ async function loadVersionInfo() {
 
     document.getElementById("client-version").innerHTML = client_version
     document.getElementById("current-version").innerHTML = current_version
-    document.getElementById("update-client").innerHTML = `Update to ${current_version}`
+
+    if (client_version == current_version){
+        readyToPlay();
+        return;
+    }
+    
+    document.getElementById("update-client").disabled = false;
+    document.getElementById("update-client").innerHTML = `Update`
+    
 }
 
 loadVersionInfo();
 
 function init_update() {
-    eel.init_update(manifest, version)
+    eel.init_update(manifest, current_version)
 }
 
 /**
