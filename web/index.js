@@ -1,4 +1,17 @@
 const buttonsSection = document.querySelector(".buttons-section")
+let manifest;
+let version;
+let current_version;
+
+async function loadVersionInfo() {
+    manifest = await eel.get_manifest()();
+    version = await eel.get_version()();
+    current_version = await eel.get_current_version(manifest)();
+    eel.printf("Latest version.")
+    console.log("Latest version:", version);
+}
+
+loadVersionInfo();
 
 
 eel.expose(move);               // Expose this function to Python
@@ -9,7 +22,7 @@ function say_hello_js(x) {
 
 
 function init_update() {
-    eel.init_update()
+    eel.init_update(manifest, version)
 }
 
 

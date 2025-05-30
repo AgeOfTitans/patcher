@@ -1,4 +1,5 @@
 import os, json, hashlib, requests
+from packaging.version import Version
 
 
 DROPBOX_LINK = \
@@ -19,14 +20,38 @@ def hash_file(path):
     return h.hexdigest()
 
 
-def get_deltas(manifest, local_base_dir):
+def get_deltas(manifest, local_base_dir, current_version="0.0.0"):
+    file_map = {}
+
+    # Only apply versions newer than current_version
+    for version_entry in manifest['versions']:
+        if Version(version_entry['version']) <= Version(current_version):
+            continue
+
+        for path, file_entry in version_entry['files'].items():
+            if file_entry.get("delete"):
+                file_map.pop(path, None)
+                local_path = os.path.join(local_base_dir, path)
+                if os.path.exists(local_path):
+                    try:
+                        os.remove(local_path)
+                    except Exception as e:
+                        print(f"Error deleting {local_path}: {e}")
+                continue
+
+            file_map[path] = [path, file_entry]
+
     out_of_sync_files = []
-    for entry in manifest['files']:
-        local_path = os.path.join(local_base_dir, entry['path'])
+
+    for path, entry in file_map.items():
+        local_path = os.path.join(local_base_dir, path)
+
         if not os.path.exists(local_path):
             out_of_sync_files.append(entry)
             continue
+
         local_hash = hash_file(local_path)
-        if local_hash != entry['hash']:
+        if local_hash != entry[1]['hash']:
             out_of_sync_files.append(entry)
+
     return out_of_sync_files
