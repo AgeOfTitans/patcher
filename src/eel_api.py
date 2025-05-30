@@ -1,6 +1,8 @@
 import math
 import eel
 import os
+import sys
+import subprocess
 from src.update import deltas, download
 from src.file import eqemupatcher as file
 from packaging import version
@@ -28,7 +30,21 @@ def get_current_version(manifest):
         key=version.parse,
         reverse=True
     )
-    return sorted_versions[0]
+    return sorted_versions[0]\
+
+
+@eel.expose
+def steam_download():
+    # TODO Before release move download folder to be CWD and not ROF2
+    script_path = os.path.join("src", "steam_client", "steam_download.py")
+
+    # Wrap the full command in double quotes for `start`, and escape inner quotes correctly
+    command = f'python {script_path}'
+
+    subprocess.Popen([
+        "cmd.exe", "/c",
+        f'start cmd /k {command}'
+    ])
 
 
 @eel.expose
@@ -44,6 +60,7 @@ def init_update(manifest, client_version):
         if download.download(src_link, dest_file):
             progress = progress + 1
             eel.move(math.ceil(100 * progress / delta_count))  # ceil to prevent rounding issues
+    file.set_local_version(get_current_version(manifest))
     eel.readyToPlay()
 
 

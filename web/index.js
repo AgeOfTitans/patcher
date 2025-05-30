@@ -28,6 +28,7 @@ async function loadVersionInfo() {
     }
     
     document.getElementById("update-client").disabled = false;
+    document.getElementById("download-client").disabled = false;
     document.getElementById("update-client").innerHTML = `Update`
     
 }
@@ -36,6 +37,10 @@ loadVersionInfo();
 
 function init_update() {
     eel.init_update(manifest, current_version)
+}
+
+function init_steam_download() {
+    eel.steam_download()
 }
 
 /**
@@ -59,7 +64,8 @@ function move(progress) {
  * Patcher has finished, game is ready to play.
  */
 function readyToPlay() {
-    updateButton.disabled = true;
+    // updateButton.disabled = true; This line is causing issues somehow
+    client_version = eel.get_version()();
     document.getElementById("play").disabled = false;
     updateButton.value = `Up to Date!`
     document.querySelector(".client-version").value = current_version
